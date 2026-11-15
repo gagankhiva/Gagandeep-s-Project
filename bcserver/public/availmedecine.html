@@ -10,7 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <script>
+    
 $(document).ready(function () {
+    $("#emailid").val(localStorage.getItem("activeuser")).prop("readonly",true);
     // show selected image in the box
     $("#filePic").change(function () {
         let file = this.files[0];

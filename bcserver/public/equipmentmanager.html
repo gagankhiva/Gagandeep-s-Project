@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,9 +14,9 @@
         let myModule = angular.module("equipModule", []);
         myModule.controller("equipController", function ($scope, $http) {
             $scope.email = "";
+             $scope.email = localStorage.getItem("activeuser");
             $scope.jsonAry = [];
 
-            
             $scope.doLoad = function () {
                 let url = "/get-equipments?txtEmail=" + $scope.email;
                 $http.get(url).then(function (resp) {
@@ -25,7 +26,7 @@
                 });
             }
 
-           
+
             $scope.doRemove = function (rid) {
                 if (!confirm("Are you sure you want to remove this equipment?"))
                     return;
@@ -44,10 +45,10 @@
 
 <body ng-app="equipModule" ng-controller="equipController">
 
-   
+
     <nav class="navbar bg-primary-subtle border-bottom">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/donordash">
+            <a class="navbar-brand d-flex align-items-center" href="/donordash" >
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/042/048/447/small/blood-donation-for-foundation-or-medical-logo-design-illustration-idea-vector.jpg"
                     alt="Logo" width="40" height="40" class="me-2">
                 NGO>
@@ -61,24 +62,27 @@
 
                 <h3 class="text-center mb-4">Equipment Manager</h3>
 
-               
+
                 <div class="row g-2 mb-4">
                     <div class="col-12 col-md-8">
-                        <input type="email" class="form-control" Id" ng-model="email">
+                      <input type="email" class="form-control"  ng-model="email" readonly>
                     </div>
                     <div class="col-12 col-md-4">
-                        <button type="button" class="btn btn-primary w-100" ng-click="doLoad();">Load All Equip.</button>
+                        <button type="button" class="btn btn-primary w-100" ng-click="doLoad();">Load All
+                            Equip.</button>
                     </div>
                 </div>
 
-                
+
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="obj in jsonAry">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        ng-repeat="obj in jsonAry">
                         <span>
                             <img ng-src="{{obj.picurl}}" width="90" height="90" class="me-2 border" alt="">
                             {{$index + 1}}. {{obj.category}}
                         </span>
-                        <button type="button" class="btn btn-danger btn-sm" ng-click="doRemove(obj.rid);">Remove</button>
+                        <button type="button" class="btn btn-danger btn-sm"
+                            ng-click="doRemove(obj.rid);">Remove</button>
                     </li>
                 </ul>
 
@@ -87,4 +91,5 @@
     </div>
 
 </body>
+
 </html>
