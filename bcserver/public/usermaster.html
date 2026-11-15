@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <script>
+
+        let myModule=angular.module("mouduleKuch",[]);
+        let myController=myModule.controller("controllerKuch",function($scope,$http)
+        {
+               
+            
+             $scope.jsonAry=[];
+             $scope.doShowAll=function(){
+                    let url="/get-users";
+                    $http.get(url).then(function(resp){
+                           // alert(JSON.stringify(resp.data))
+                            $scope.jsonAry=resp.data;
+                    },function(err){
+                            alert(JSON.stringify(err))
+                    })
+             }    
+         
+            $scope.doShowDetails=function(emailid,index)
+                {
+                    
+                    alert(JSON.stringify($scope.jsonAry[index]))
+                }   
+              $scope.doDelete=function(emailid)
+                {
+                    let url="/delete-user?txtEmail="+emailid; //query String : url+keyValue Pairs
+                    $http.get(url).then(function(resp){
+                            alert(JSON.stringify(resp.data))
+                            $scope.doShowAll();
+                            
+                    },function(err){
+                            alert(JSON.stringify(err))
+                    })
+                }      
+
+             
+              $scope.doBlock=function(emailid)
+                {
+                    let url="/block-user?txtEmail="+emailid;
+                    $http.get(url).then(function(resp){
+                            alert(JSON.stringify(resp.data))
+                            $scope.doShowAll();
+                    },function(err){
+                            alert(JSON.stringify(err))
+                    })
+                }
+
+            
+              $scope.doResume=function(emailid)
+                {
+                    let url="/resume-user?txtEmail="+emailid;
+                    $http.get(url).then(function(resp){
+                            alert(JSON.stringify(resp.data))
+                            $scope.doShowAll();
+                    },function(err){
+                            alert(JSON.stringify(err))
+                    })
+                }
+
+        })
+    </script>
+</head>
+<body ng-app="mouduleKuch" ng-controller="controllerKuch" ng-init="doShowAll();">
+
+    <center>
+
+    <hr><hr>
+    <input type="button" class="btn btn-primary" value="Show All Records" ng-click="doShowAll();">
+    <hr>
+    <h3>All Records</h3>
+    <div class="container">
+   <table class="table">
+    <tr>
+        <th>Sr.No</th>
+        <th>emailid</th>
+        <th>User Type</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr ng-repeat="obj in jsonAry">
+        <td>{{$index+1}}</td>
+        <td>{{obj.emailid}}</td>
+        <td>{{obj.utype}}</td>
+        <td>{{obj.statuss}}</td>
+        <td>
+            <a href="" class="btn btn-outline-danger" ng-click="doShowDetails(obj.emailid,$index)">Details</a>
+            <a href="" class="btn btn-outline-danger" ng-click="doDelete(obj.emailid)">Remove</a>
+            <a href="" class="btn btn-outline-warning" ng-click="doBlock(obj.emailid)">Block</a>
+            <a href="" class="btn btn-outline-success" ng-click="doResume(obj.emailid)">Resume</a>
+        </td>
+    </tr>
+</table>
+    </div>
+    </center>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medicine Availability</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<script>
+$(document).ready(function () {
+    // show selected image in the box
+    $("#filePic").change(function () {
+        let file = this.files[0];
+        if (file)
+            $("#preview").prop("src", URL.createObjectURL(file));
+    });
+});
+</script>
+<body>
+<div class="container mt-4" style="max-width: 800px;">
+
+    <h2 class="text-center mb-4">Medicine Availability</h2>
+
+    <form action="/avail-medecine" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="emailid">Email Id</label>
+            <input type="email" class="form-control" id="emailid" name="emailid" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="medecine">Medicine Name</label>
+                <input type="text" class="form-control" id="medecine" name="medecine" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="power">Power (mg)</label>
+                <input type="text" class="form-control" id="power" name="power">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="company">Company</label>
+                <input type="text" class="form-control" id="company" name="company">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="qty">Qty</label>
+                <input type="text" class="form-control" id="qty" name="qty" >
+            </div>
+            <div class="form-group col-md-4">
+                <label for="packing">Packing</label>
+                <select id="packing" name="packing" class="form-control">
+                    <option value="">Choose...</option>
+                    <option>Strip</option>
+                    <option>Bottle</option>
+                    <option>Vial</option>
+                    <option>Tube</option>
+                </select>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="doexp">Date of Expiry</label>
+                <input type="date" class="form-control" id="doexp" name="doexp">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="filePic">Pic.</label>
+            <input type="file" class="form-control-file" id="filePic" name="filePic" accept="image/*">
+            <img src="" id="preview" class="mt-2 border" width="150" height="150" >
+        </div>
+
+        <button type="submit" class="btn btn-primary">Avail To NGOs</button>
+    </form>
+</div>
+
+
+</body>
+</html>

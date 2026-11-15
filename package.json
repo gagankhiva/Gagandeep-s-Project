@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cloudinary": "^2.11.0",
+    "express-fileupload": "^1.5.2"
+  }
+}

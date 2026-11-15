@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Needy Details</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<script>
+$(document).ready(function () {
+    $("#emailid").val(localStorage.getItem("activeuser")).prop("readonly",true);
+    $("#frontPic").change(function () {
+        if (this.files[0])
+            $("#previewFront").prop("src", URL.createObjectURL(this.files[0]));
+    });
+    $("#backPic").change(function () {
+        if (this.files[0])
+            $("#previewBack").prop("src", URL.createObjectURL(this.files[0]));
+    });
+});
+</script>
+<body>
+<div class="container mt-4" style="max-width: 900px;">
+
+    <form enctype="multipart/form-data">
+        <div class="form-row">
+
+            
+            <div class="form-group col-md-5">
+
+                <label for="frontPic">Front Adhaar Card Pic</label>
+                <img src="" id="previewFront" class="border d-block mb-2" width="200" height="150" alt="">
+                <input type="file" class="form-control-file" id="frontPic" name="frontPic" accept="image/*" required>
+
+                <label for="backPic" class="mt-4 d-block">Rear Adhaar Card</label>
+                <img src="" id="previewBack" class="border d-block mb-2" width="200" height="150" alt="">
+                <input type="file" class="form-control-file" id="backPic" name="backPic" accept="image/*" required>
+            </div>
+
+           
+            <div class="col-md-7">
+
+                <h4 class="mb-4">Needy Details</h4>
+
+                <div class="form-group">
+                    <label for="emailid">Email ID</label>
+                    <input type="email" class="form-control" id="emailid" name="emailid" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="text" class="form-control" id="contact" name="contact" required>
+                </div>
+
+                <button type="submit" formaction="/save-needy" formmethod="POST" class="btn btn-primary mt-3">
+                    Upload Data to Server
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
